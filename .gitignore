@@ -1,0 +1,5 @@
+backend/node_modules/
+backend/package-lock.json
+backend/.env
+FlaskBackend/.idea/
+FlaskBackend/.venv/
