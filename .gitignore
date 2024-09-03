@@ -3,3 +3,8 @@ backend/package-lock.json
 backend/.env
 FlaskBackend/.idea/
 FlaskBackend/.venv/
+backend/uploads/
+FlaskBackend/app/.env
+log-viewer/node_modules
+log-viewer/package-lock.json
+FlaskBackend/archive

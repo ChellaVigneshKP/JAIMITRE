@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { OpenAI } = require('openai'); // Correct import for OpenAI client
+const { OpenAI } = require('openai');
 const axios = require('axios');
 
 const app = express();
@@ -65,6 +65,6 @@ app.post('/api/get-response', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(4000, () => {
+    console.log('Server is running on port 4000');
 });

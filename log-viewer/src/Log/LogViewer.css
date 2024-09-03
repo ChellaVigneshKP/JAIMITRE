@@ -1,0 +1,75 @@
+.log-viewer {
+  padding: 10px;
+}
+
+button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+button.fetch-log {
+  background-color: #007bff; /* Light Blue */
+}
+
+button.automate {
+  background-color: #FF6384; /* Light Red */
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.vertical-boxes {
+  display: flex;
+  flex-direction: column; /* Stack the boxes vertically */
+}
+
+.box {
+  height: 200px; /* Fixed height for each box */
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Scroll vertically if content exceeds box height */
+  word-wrap: break-word; /* Break long lines to fit the width */
+}
+
+/* Optional styles for better readability */
+h2 {
+  margin-bottom: 10px;
+}
+
+pre {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap; /* Ensure log lines wrap */
+}
+
+.chart-box {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}

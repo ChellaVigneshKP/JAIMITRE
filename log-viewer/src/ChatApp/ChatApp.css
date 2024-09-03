@@ -1,0 +1,195 @@
+/* Chat container styles */
+.chat-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  overflow-y: scroll;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.user-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.user-message {
+  text-align: right;
+  padding: 10px;
+  background-color: #e1f5fe;
+  border-radius: 10px;
+  width: 70%;
+  margin-left: 30px; /* Space between the message and the left edge */
+}
+
+.user-message .indicator {
+  font-size: 12px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+/* Assistant message (green background) */
+.assistant-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.assistant-message {
+  text-align: left;
+  padding: 10px;
+  background-color: #f1f8e9;
+  border-radius: 10px;
+  width: 70%;
+  margin-right: 30px;
+  white-space: pre-wrap;
+  /* Space between the message and the right edge */
+}
+
+.assistant-message .indicator {
+  font-size: 12px;
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 5px;
+}
+
+/* System message (red background) */
+.system-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.system-message {
+  text-align: left;
+  padding: 10px;
+  background-color: #f0f0f0; /* Red background for system messages */
+  border-radius: 10px;
+  width: 70%;
+  margin-right: 30px;
+  white-space: pre-wrap;
+}
+
+.system-message .indicator {
+  font-size: 12px;
+  font-weight: bold;
+  color: #000000; /* Red indicator for system messages */
+  margin-bottom: 5px;
+}
+
+.system-assistant-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.system-assistant-message {
+  text-align: left;
+  padding: 10px;
+  background-color: #F4E2CE; /* Red background for system messages */
+  border-radius: 10px;
+  width: 70%;
+  margin-right: 30px;
+  white-space: pre-wrap;
+}
+
+.system-assistant-message .indicator {
+  font-size: 12px;
+  font-weight: bold;
+  color: #e53935; /* Red indicator for system messages */
+  margin-bottom: 5px;
+}
+
+.typing-indicator {
+  font-size: 14px;
+  color: #007bff;
+}
+
+.typing-indicator::after {
+  content: '...';
+  animation: typing 1.5s infinite;
+}
+
+@keyframes typing {
+  0% { content: '...'; }
+  33% { content: '..'; }
+  66% { content: '.'; }
+  100% { content: '...'; }
+}
+
+.chat-input-form {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+.chat-input-form input {
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.chat-input-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.chat-input-form button:disabled {
+  background-color: #ccc;
+}
+
+.references-dropdown {
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.references-dropdown ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.references-dropdown li {
+  padding: 2px;
+}
+
+.references-dropdown a {
+  text-decoration: none;
+  font-size: 13px;
+  color: #007bff;
+}
+
+.references-dropdown a:hover {
+  text-decoration: underline;
+}
+
+.search-info {
+  font-size: 13px; /* Adjust the size as needed */
+  color: blue; /* Optional: keep it blue */
+  padding: 2px;
+}

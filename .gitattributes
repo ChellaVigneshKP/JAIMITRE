@@ -1,10 +1,8 @@
 # Enforce LF for all text files
 * text=auto
-
 # Ensure .sh and .md files use LF
 *.sh text eol=lf
 *.md text eol=lf
-
 # Ensure .bat and .cmd files use CRLF
 *.bat text eol=crlf
 *.cmd text eol=crlf

@@ -1,0 +1,98 @@
+.search-tool {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-tool .section {
+  margin-bottom: 20px;
+}
+
+.search-tool label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.search-tool .input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.search-tool .input-container select,
+.search-tool .input-container input,
+.search-tool .input-container button {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.search-tool .input-container select {
+  width: 100%;
+}
+
+.search-tool .input-container input {
+  width: 100%;
+}
+
+.search-tool .input-container button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.search-tool .input-container button:hover {
+  background-color: #0056b3;
+}
+
+.integrity-check-section {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.integrity-check-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.integrity-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.integrity-input label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.integrity-input input,
+.integrity-input button {
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.integrity-input button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.integrity-input button:hover {
+  background-color: #0056b3;
+}
+
+
+.response pre,
+.response p {
+  word-wrap: break-word;
+  white-space: normal;
+}

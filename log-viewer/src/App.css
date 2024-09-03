@@ -1,0 +1,55 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-container {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.side-section-left {
+  flex-basis: 20%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ddd;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.chat-section {
+  flex-basis: 60%;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.side-section-right {
+  flex-basis: 20%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-left: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+.log-viewer .vertical-boxes .box {
+  height: 200px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  word-wrap: break-word;
+}
