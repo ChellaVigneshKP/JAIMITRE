@@ -47,6 +47,7 @@ const LogViewer = () => {
           else {
             message = `Predicted Incident Grade is: ${incident_grade}\nNo Prediction for MITRE ATT&CK`;
           }
+          fetchMitreData();
           return message;
         } else {
           throw new Error('Response structure is incorrect');
@@ -129,7 +130,30 @@ const LogViewer = () => {
         processFileFromUploads("Assign 2.pdf"),
         checkUrl("google.com"),
       ]);
-      setButtonMessage({ role: 'system', content: `${logMessage}\n${mitreMessage}\n${fileMessage}\n${urlMessage}` });
+      const combinedMessages = `${logMessage}\n${mitreMessage}\n${fileMessage}\n${urlMessage}`;
+      const regex = /\bT\d{4}(?:\.\d{3})?\b/g;
+      const mitreIds = combinedMessages.match(regex) || [];
+      const mitreIdString = mitreIds ? mitreIds.join(', ') : '';
+      console.log("Extracted MITRE ATT&CK IDs:", mitreIdString);
+      setButtonMessage({ role: 'system', content: combinedMessages });
+      const searchResponse = await axios.post('http://127.0.0.1:5000/search-attackid', { ids: mitreIdString });
+      const searchData = searchResponse.data;
+      const attackDetails = searchData.map(item => (
+        `ID: ${item.attack_id}, Name: ${item.name}, Description: ${item.description}, Kill Chain Phases: ${item.kill_chain_phases.map(phase => `${phase.kill_chain_name} - ${phase.phase_name}`).join(', ')}`
+      )).join('\n');
+      setButtonMessage({ role: 'system-assistant', content: attackDetails });
+      if(mitreIds.length>0){
+        try {
+          const response = await axios.post('http://127.0.0.1:5000/suggest-d3fend', {
+            attack_ids: mitreIds
+          });
+          const suggestions = response.data.suggestions;
+          setButtonMessage({ role: 'system-assistant', content: suggestions });
+        } catch (error) {
+          console.error('Error fetching D3Fend suggestions:', error);
+          setButtonMessage({ role: 'system', content: 'An error occurred while fetching D3Fend suggestions.' });
+        }
+      }
     } catch (error) {
       setButtonMessage({ role: 'system', content: 'An error occurred during automation.' });
     } finally {

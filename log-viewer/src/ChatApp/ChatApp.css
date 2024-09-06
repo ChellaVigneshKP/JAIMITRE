@@ -112,6 +112,7 @@
   width: 70%;
   margin-right: 30px;
   white-space: pre-wrap;
+  text-align: justify;
 }
 
 .system-assistant-message .indicator {

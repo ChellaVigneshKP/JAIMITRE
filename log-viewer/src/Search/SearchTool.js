@@ -1,7 +1,7 @@
-import React, { useState , useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import './SearchTool.css';
-import {ButtonContext} from "../ButtonContext"
+import { ButtonContext } from "../ButtonContext";
 
 const SearchTool = () => {
   const [attckSearchTerm, setAttckSearchTerm] = useState('');
@@ -13,18 +13,78 @@ const SearchTool = () => {
   const [fileResponse, setFileResponse] = useState(null);
   const [urlResponse, setUrlResponse] = useState(null);
   const { setButtonMessage } = useContext(ButtonContext);
-  const handleAttckSearch = () => {
-    const message = `ATT&CK Search Term: ${attckSearchTerm}, Filter: ${attckDropdownValue}`;
-    console.log(message);
-    setButtonMessage(message);
-    setButtonMessage({ role: 'system-assistant', content: message });
+  const [attckResults, setAttckResults] = useState(null);
+
+  const handleAttckSearch = async () => {
+    try {
+      let response;
+      if (attckDropdownValue === 'content') {
+        response = await axios.post('http://localhost:5000/search-content', {
+          content: attckSearchTerm,
+        });
+        if (response.data && response.data.length > 0) {
+          const formattedMessage = response.data.map((item) => (
+            `Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\n`
+          )).join('\n');
+          setButtonMessage({ role: 'system-assistant', content: formattedMessage });
+        } else {
+          setButtonMessage({ role: 'system-assistant', content: 'No similar results found.' });
+        }
+        console.log(attckResults);
+      } else if (attckDropdownValue === 'filter2') {
+        response = await axios.post('http://localhost:5000/search-attackid', {
+          ids: [attckSearchTerm],  // Assuming attckSearchTerm is an ID
+      });
+      if(response.data && response.data.length > 0){
+        const formattedMessage = response.data.map((item) => (
+          `ATT&CK ID : ${item.attack_id}\nName: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\n`
+        )).join('\n');
+        setButtonMessage({ role: 'system-assistant', content: formattedMessage });
+      }else{
+        setButtonMessage({ role: 'system-assistant', content: 'No matching techniques found.' });
+      }
+      setAttckResults(response.data);
+      }
+
+      if (response) {
+        setAttckResults(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching ATT&CK techniques:', error);
+      setAttckResults({ error: 'Error fetching data' });
+    }
   };
-  const handleD3fendSearch = () => {
-    console.log(`D3FEND Search Term: ${d3fendSearchTerm}, Filter: ${d3fendDropdownValue}`);
+
+  const handleD3fendSearch = async () => {
+    try {
+      let response;
+      if (d3fendDropdownValue === 'name') {
+        response = await axios.post('http://localhost:5000/search-d3fendname', {
+          name: d3fendSearchTerm,
+        });
+      } else if (d3fendDropdownValue === 'id') {
+        response = await axios.post('http://localhost:5000/search-d3fendid', {
+          id: d3fendSearchTerm,
+        });
+      }
+
+      if (response.data && !response.data.error) {
+        const formattedMessage = `Name: ${response.data.technique_name}\nD3FEND Extraction:\n${JSON.stringify(response.data.api_response, null, 2)}`;
+        console.log(response.data)
+        setButtonMessage({ role: 'system-assistant', content: formattedMessage });
+      } else {
+        setButtonMessage({ role: 'system-assistant', content: 'No results found or an error occurred.' });
+      }
+    } catch (error) {
+      console.error('Error fetching D3FEND data:', error);
+      setButtonMessage({ role: 'system-assistant', content: 'Error fetching D3FEND data.' });
+    }
   };
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+
   const handleFileUpload = async () => {
     if (!file) return;
 
@@ -74,9 +134,8 @@ const SearchTool = () => {
             onChange={(e) => setAttckDropdownValue(e.target.value)}
           >
             <option value="">Select Filter</option>
-            <option value="filter1">Filter 1</option>
-            <option value="filter2">Filter 2</option>
-            {/* Add more options as needed */}
+            <option value="content">Search by Content</option>
+            <option value="filter2">Search by ID</option>
           </select>
           <input
             type="text"
@@ -87,6 +146,7 @@ const SearchTool = () => {
           <button onClick={handleAttckSearch}>Search ATT&CK</button>
         </div>
       </div>
+
       <div className="section">
         <label htmlFor="d3fend-dropdown">D3FEND Search</label>
         <div className="input-container">
@@ -96,9 +156,8 @@ const SearchTool = () => {
             onChange={(e) => setD3fendDropdownValue(e.target.value)}
           >
             <option value="">Select Filter</option>
-            <option value="filter1">Filter 1</option>
-            <option value="filter2">Filter 2</option>
-            {/* Add more options as needed */}
+            <option value="id">Search By ID</option>
+            <option value="name">Search By Name</option>
           </select>
           <input
             type="text"
