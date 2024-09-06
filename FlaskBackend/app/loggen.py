@@ -43,11 +43,11 @@ def preprocess_data(df, le_cat_columns):
 
 
 def process_data():
-    train_data = pd.read_csv('../archive/GUIDE_Train.csv')
-    test_data = pd.read_csv('../archive/GUIDE_Test.csv')
-    print(train_data.shape)
-    train_data.dropna(subset=['IncidentGrade'], inplace=True)
-    train_data = preprocess_data(train_data, le_cat_columns)
+    # train_data = pd.read_csv('../archive/GUIDE_Train.csv')
+    test_data = pd.read_csv('../archive/GUIDE_Test.csv', low_memory=False)
+    # print(train_data.shape)
+    test_data.dropna(subset=['IncidentGrade'], inplace=True)
+    train_data = preprocess_data(test_data, le_cat_columns)
     test_data = preprocess_data(test_data, le_cat_columns)
     group_columns = ohe_cat_columns + numerical_columns + le_cat_columns
     train_data = train_data.drop_duplicates(subset=group_columns)
@@ -119,6 +119,7 @@ def train_catboost_classifier(X_train, y_train):
     plt.show()
 
     return model
+
 
 paths = {
     'enterprise': '../attack-stix-data/enterprise-attack/enterprise-attack.json',
