@@ -6,3 +6,5 @@
 # Ensure .bat and .cmd files use CRLF
 *.bat text eol=crlf
 *.cmd text eol=crlf
+# Ignore Jupyter Notebook files
+*.ipynb linguist-detectable=false
